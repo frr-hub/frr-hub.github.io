@@ -71,6 +71,72 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-SQL注入" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2026/09/26/SQL%E6%B3%A8%E5%85%A5/" class="article-date">
+  <time class="dt-published" datetime="2026-09-26T10:54:08.534Z" itemprop="datePublished">2026-09-26</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <h1 id="SQL注入学习笔记"><a href="#SQL注入学习笔记" class="headerlink" title="SQL注入学习笔记"></a>SQL注入学习笔记</h1><h2 id="漏洞原理"><a href="#漏洞原理" class="headerlink" title="漏洞原理"></a>漏洞原理</h2><p>SQL注入就是网站直接把用户输入拼进SQL语句执行。如果没有做安全处理，我们输入特殊符号，就能改动数据库原本的查询逻辑。<br>危险示例代码：</p>
+<pre><code class="language-php">$sql = &quot;SELECT * FROM users WHERE id=&#39;$id&#39; LIMIT 0,1&quot;;
+ 
+ 
+漏洞危害
+ 
+可以绕过登录、读取数据库里的账号密码，严重时还能修改删除数据。
+ 
+简单检测方法
+ 
+在URL参数后面加单引号  ?id=1&#39; ，页面报错大概率存在注入。
+再用 ?id=1 and 1=1 和 ?id=1 and 1=2 对比页面返回，结果不一样就说明参数能影响SQL。
+ 
+靶场实操
+ 
+用Docker部署sqli-labs靶场，练习Less-1字符型单引号注入。
+ 
+ 
+ 
+访问  http://127.0.0.1:8080/Less-1/ 
+ 
+1.  ?id=1&#39;  页面报错，确认注入点
+2.  ?id=1&#39; order by 3--+  判断字段数量
+3.  ?id=-1&#39; union select 1,2,3--+  联合查询获取数据
+ 
+漏洞修复
+ 
+不安全的根源是直接拼接用户输入。
+使用预编译绑定参数，用户输入只会当成普通文本，不会被当成SQL代码执行。
+ 
+  
+ 
+ 
+学习小结
+ 
+这次动手搭靶场，实操了基础SQL注入。核心记住：所有用户输入都不可信，不能直接拼进SQL，优先用预编译来防御注入漏洞。
+ 
+</code></pre>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://example.com/2026/09/26/SQL%E6%B3%A8%E5%85%A5/" data-id="cuidNp3s3zIoAUu9ACHFy0F4p" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-GET和POST" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2026/09/21/GET%E5%92%8CPOST/" class="article-date">
@@ -92,7 +158,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/09/21/GET%E5%92%8CPOST/" data-id="cuidTEdbZWLXkLrzV07HgHWaO" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/09/21/GET%E5%92%8CPOST/" data-id="cuid9vHkXij7pgQTf6HRjyuzh" data-title="" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -150,7 +216,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/09/17/week1-http%E6%8A%93%E5%8C%85/" data-id="cuidWtMKO1_wgE1XLgN_WvDJz" data-title="week1-HTTP抓包" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/09/17/week1-http%E6%8A%93%E5%8C%85/" data-id="cuidV0ZP0j9onI6Jf-8Ya0hKy" data-title="week1-HTTP抓包" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -203,7 +269,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/09/17/%E5%89%8D%E7%AB%AF/" data-id="cuidzu10J-i8k2Vp5jpNqkwCX" data-title="前端三件套与前端页面构成" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/09/17/%E5%89%8D%E7%AB%AF/" data-id="cuid29euUtpmrY6sCSrdhxu2n" data-title="前端三件套与前端页面构成" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -251,7 +317,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/09/16/week1-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E8%AF%AD%E6%B3%95/" data-id="cuidZeXeHZy3HunafJTffdL1Q" data-title="week1-搜索引擎语法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/09/16/week1-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E8%AF%AD%E6%B3%95/" data-id="cuidQrnVDS6N1XKHFUMuiNUcl" data-title="week1-搜索引擎语法" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -291,7 +357,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E7%AC%94%E8%AE%B0/" data-id="cuidh5pEyA4NJOK2l8zoJAv7Z" data-title="我的第一篇笔记" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E7%AC%94%E8%AE%B0/" data-id="cuid0S3fK2Ud85rpuULdm53kJ" data-title="我的第一篇笔记" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -344,7 +410,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2026/09/15/hello-world/" data-id="cuidi8o6-Xi63vJNScfCklb1U" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      <a data-url="http://example.com/2026/09/15/hello-world/" data-id="cuidqHFUiZePD1QqP9P9IgXoI" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
       
       
       
@@ -401,6 +467,10 @@
       <ul>
         
           <li>
+            <a href="/2026/09/26/SQL%E6%B3%A8%E5%85%A5/">(no title)</a>
+          </li>
+        
+          <li>
             <a href="/2026/09/21/GET%E5%92%8CPOST/">(no title)</a>
           </li>
         
@@ -414,10 +484,6 @@
         
           <li>
             <a href="/2026/09/16/week1-%E6%90%9C%E7%B4%A2%E5%BC%95%E6%93%8E%E8%AF%AD%E6%B3%95/">week1-搜索引擎语法</a>
-          </li>
-        
-          <li>
-            <a href="/2026/09/15/%E6%88%91%E7%9A%84%E7%AC%AC%E4%B8%80%E7%AF%87%E7%AC%94%E8%AE%B0/">我的第一篇笔记</a>
           </li>
         
       </ul>
